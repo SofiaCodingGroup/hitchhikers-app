@@ -26,13 +26,9 @@ export class HomeComponent implements OnInit {
     constructor(public nameListService: NameListService, private fb: FacebookService) {
         let fbParams: FacebookInitParams = {
             appId: '1596662717016739',
-            xfbml: true,
             version: 'v2.8'
         };
-        this.fb.init(fbParams).then(
-            (response: FacebookLoginResponse) => console.log(response),
-            (error: any) => console.error(error)
-        );
+        this.fb.init(fbParams);
     }
 
     /**
