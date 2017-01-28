@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "App for traveling and connecting with people.",
   "repository": {
-    "url": "https://github.com/IpIvanov/angular2-seed-express"
+    "url": "https://github.com/SofiaCodingGroup/hitchhikers-app"
   },
   "scripts": {
     "build.dev": "gulp build.dev --color --env-config dev",
