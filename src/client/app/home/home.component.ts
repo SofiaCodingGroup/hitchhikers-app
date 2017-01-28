@@ -23,12 +23,7 @@ export class HomeComponent implements OnInit {
      *
      * @param {NameListService} nameListService - The injected NameListService.
      */
-    constructor(public nameListService: NameListService, private fb: FacebookService) {
-        let fbParams: FacebookInitParams = {
-            appId: '1596662717016739',
-            version: 'v2.8'
-        };
-        this.fb.init(fbParams);
+    constructor(public nameListService: NameListService) {
     }
 
     /**
@@ -36,18 +31,6 @@ export class HomeComponent implements OnInit {
      */
     ngOnInit() {
         this.getNames();
-        this.login();
-    }
-
-    /**
-     * User login with facebook api
-     */
-
-    login(): void {
-        this.fb.login().then(
-            (response: FacebookLoginResponse) => console.log(response),
-            (error: any) => console.error(error)
-        );
     }
 
     /**
