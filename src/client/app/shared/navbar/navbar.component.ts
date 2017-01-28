@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FacebookService, FacebookInitParams, FacebookLoginResponse} from 'ng2-facebook-sdk/dist/index';
+import {
+    FacebookService, FacebookInitParams, FacebookLoginResponse,
+    FacebookApiMethod
+} from 'ng2-facebook-sdk/dist/index';
 
 /**
  * This class represents the navigation bar component.
@@ -14,6 +17,9 @@ export class NavbarComponent implements OnInit {
 
     logged: boolean;
     fbParams: FacebookInitParams;
+    fbApiMethod: FacebookApiMethod;
+    userPictureUrl: string;
+    userName: string
 
     constructor(private fb: FacebookService) {
         this.fbParams = {
@@ -32,6 +38,16 @@ export class NavbarComponent implements OnInit {
             (response: FacebookLoginResponse) => {
                 console.log(response)
                 this.logged = true;
+                this.fb.api('/me', this.fbApiMethod, {fields: ['id', 'name', 'picture']}).then(
+                    (response: FacebookLoginResponse) => {
+                        //noinspection TypeScriptUnresolvedVariable
+                        console.log('Good to see you, ' + response.name + '. This is your picture and id: ' + response.picture.data.url + ', ' + response.id);
+                        //noinspection TypeScriptUnresolvedVariable
+                        this.userName = response.name;
+                        //noinspection TypeScriptUnresolvedVariable
+                        this.userPictureUrl = response.picture.data.url;
+                    }
+                );
             },
             (error: any) => console.error(error)
         );
@@ -42,6 +58,8 @@ export class NavbarComponent implements OnInit {
             (response: FacebookLoginResponse) => {
                 console.log(response)
                 this.logged = false;
+                this.userName = undefined;
+                this.userPictureUrl = undefined;
             },
             (error: any) => console.error(error)
         );
