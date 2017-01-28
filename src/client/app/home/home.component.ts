@@ -36,6 +36,18 @@ export class HomeComponent implements OnInit {
      */
     ngOnInit() {
         this.getNames();
+        this.login();
+    }
+
+    /**
+     * User login with facebook api
+     */
+
+    login(): void {
+        this.fb.login().then(
+            (response: FacebookLoginResponse) => console.log(response),
+            (error: any) => console.error(error)
+        );
     }
 
     /**
