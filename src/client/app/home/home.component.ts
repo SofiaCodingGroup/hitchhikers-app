@@ -30,7 +30,8 @@ export class HomeComponent implements OnInit {
      * Get the names OnInit
      */
     ngOnInit() {
-        this.getNames();
+        // removing this request becouse we dont need it
+        //this.getNames();
     }
 
     /**

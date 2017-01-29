@@ -5,6 +5,6 @@
     <a (click)="login()" *ngIf="!logged">LOGIN</a>
     <a (click)="logout()" *ngIf="logged">LOGOUT</a>
     <a> <img src="{{userPictureUrl}}" alt="User picture" *ngIf="userPictureUrl"> </a>
-    <a> <span *ngIf="userName" class="pull-right">User name: {{userName}}</span></a>
+    <a> <span *ngIf="userName">User name: {{userName}}</span></a>
 </nav>
 

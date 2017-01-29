@@ -8,8 +8,7 @@ import {NavbarComponent} from './navbar/index';
 import {NameListService} from './name-list/index';
 
 import {FacebookService} from 'ng2-facebook-sdk/dist/index';
-
-
+import {Ng2Webstorage} from 'ng2-webstorage'
 
 
 /**
@@ -17,7 +16,7 @@ import {FacebookService} from 'ng2-facebook-sdk/dist/index';
  */
 
 @NgModule({
-    imports: [CommonModule, RouterModule],
+    imports: [CommonModule, RouterModule, Ng2Webstorage],
     declarations: [ToolbarComponent, NavbarComponent],
     exports: [ToolbarComponent, NavbarComponent,
         CommonModule, FormsModule, RouterModule],

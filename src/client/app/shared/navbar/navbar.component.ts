@@ -3,8 +3,8 @@ import {
     FacebookService, FacebookInitParams, FacebookLoginResponse,
     FacebookApiMethod
 } from 'ng2-facebook-sdk/dist/index';
-//System.config - needs to be fixed
-//import {Ng2Webstorage} from 'ng2-webstorage/dist/services/index'
+
+import {LocalStorageService, SessionStorageService} from 'ng2-webstorage';
 
 /**
  * This class represents the navigation bar component.
@@ -13,8 +13,7 @@ import {
     moduleId: module.id,
     selector: 'sd-navbar',
     templateUrl: 'navbar.component.html',
-    styleUrls: ['navbar.component.css'],
-    //providers: [Ng2Webstorage]
+    styleUrls: ['navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
 
@@ -22,9 +21,9 @@ export class NavbarComponent implements OnInit {
     fbParams: FacebookInitParams;
     fbApiMethod: FacebookApiMethod;
     userPictureUrl: string;
-    userName: string
+    userName: string;
 
-    constructor(private fb: FacebookService) {
+    constructor(private fb: FacebookService, private storage: LocalStorageService) {
         this.fbParams = {
             appId: '1596662717016739',
             version: 'v2.8'
@@ -40,7 +39,7 @@ export class NavbarComponent implements OnInit {
     login(): void {
         this.fb.login().then(
             (response: FacebookLoginResponse) => {
-                console.log(response)
+                console.log(response);
                 this.logged = true;
                 this.fb.api('/me', this.fbApiMethod, {fields: ['id', 'name', 'picture']}).then(
                     (response: FacebookLoginResponse) => {
@@ -50,6 +49,9 @@ export class NavbarComponent implements OnInit {
                         this.userName = response.name;
                         //noinspection TypeScriptUnresolvedVariable
                         this.userPictureUrl = response.picture.data.url;
+                        //setting user id into the local storage. This step should be moved at the response of the nodejs backend
+                        //noinspection TypeScriptUnresolvedVariable
+                        this.storage.store('userID', response.id);
                     }
                 );
             },
