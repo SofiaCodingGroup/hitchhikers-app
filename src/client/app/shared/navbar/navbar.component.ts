@@ -3,6 +3,8 @@ import {
     FacebookService, FacebookInitParams, FacebookLoginResponse,
     FacebookApiMethod
 } from 'ng2-facebook-sdk/dist/index';
+//System.config - needs to be fixed
+//import {Ng2Webstorage} from 'ng2-webstorage/dist/services/index'
 
 /**
  * This class represents the navigation bar component.
@@ -12,6 +14,7 @@ import {
     selector: 'sd-navbar',
     templateUrl: 'navbar.component.html',
     styleUrls: ['navbar.component.css'],
+    //providers: [Ng2Webstorage]
 })
 export class NavbarComponent implements OnInit {
 
@@ -31,6 +34,7 @@ export class NavbarComponent implements OnInit {
     ngOnInit() {
         this.fb.init(this.fbParams);
         this.logged = false;
+
     }
 
     login(): void {
