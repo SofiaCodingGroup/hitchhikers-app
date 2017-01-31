@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit {
     userPictureUrl: string;
     userName: string;
 
-    constructor(private fb: FacebookService, private storage: LocalStorageService) {
+    constructor(private fb: FacebookService, private localStorage: LocalStorageService) {
         this.fbParams = {
             appId: '1596662717016739',
             version: 'v2.8'
@@ -44,14 +44,15 @@ export class NavbarComponent implements OnInit {
                 this.fb.api('/me', this.fbApiMethod, {fields: ['id', 'name', 'picture']}).then(
                     (response: FacebookLoginResponse) => {
                         //noinspection TypeScriptUnresolvedVariable
-                        console.log('Good to see you, ' + response.name + '. This is your picture and id: ' + response.picture.data.url + ', ' + response.id);
+                        console.log(`Good to see you,  + ${response.name}  .This is your picture and id:   ${response.picture.data.url}, and this is your id:  ${response.id}`);
                         //noinspection TypeScriptUnresolvedVariable
                         this.userName = response.name;
                         //noinspection TypeScriptUnresolvedVariable
                         this.userPictureUrl = response.picture.data.url;
                         //setting user id into the local storage. This step should be moved at the response of the nodejs backend
                         //noinspection TypeScriptUnresolvedVariable
-                        this.storage.store('userID', response.id);
+                        this.localStorage.store('userID', response.id);
+
                     }
                 );
             },
