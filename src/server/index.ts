@@ -5,7 +5,15 @@ import * as path from 'path';
 import * as compression from 'compression';
 import * as routes from './routes';
 
+
 import { Init } from './db/redis';
+
+
+let myEncryption = new Encrytion();
+
+let salt = myEncryption.generateSalt();
+let authToken = 'AuthToken';
+let encryptedAuthToken = myEncryption.generateHashedPassword(salt, authToken)
 
 /**
  * Client Dir

@@ -6,6 +6,11 @@ import {
 
 import {LocalStorageService, SessionStorageService} from 'ng2-webstorage';
 
+import { AuthTokenService } from '../services/authToken'
+
+
+import { Config } from '../index';
+
 /**
  * This class represents the navigation bar component.
  */
@@ -23,7 +28,8 @@ export class NavbarComponent implements OnInit {
     userPictureUrl: string;
     userName: string;
 
-    constructor(private fb: FacebookService, private localStorage: LocalStorageService) {
+
+    constructor(private fb: FacebookService, private localStorage: LocalStorageService, private authService: AuthTokenService) {
         this.fbParams = {
             appId: '1596662717016739',
             version: 'v2.8'
@@ -49,8 +55,11 @@ export class NavbarComponent implements OnInit {
                         this.userName = response.name;
                         //noinspection TypeScriptUnresolvedVariable
                         this.userPictureUrl = response.picture.data.url;
+
                         //setting user id into the local storage. This step should be moved at the response of the nodejs backend
+                        this.authService.saveToken(response.authResponse);
                         //noinspection TypeScriptUnresolvedVariable
+
                         this.localStorage.store('userID', response.id);
 
                     }
