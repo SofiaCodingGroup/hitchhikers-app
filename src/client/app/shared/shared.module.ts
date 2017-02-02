@@ -6,7 +6,7 @@ import {RouterModule} from '@angular/router';
 import {ToolbarComponent} from './toolbar/index';
 import {NavbarComponent} from './navbar/index';
 import {NameListService} from './name-list/index';
-import {AuthTokenService} from './services/index'
+import {UserService} from './services/index'
 import {Api} from './services/index'
 
 
@@ -23,7 +23,7 @@ import {Ng2Webstorage} from 'ng2-webstorage'
     declarations: [ToolbarComponent, NavbarComponent],
     exports: [ToolbarComponent, NavbarComponent,
         CommonModule, FormsModule, RouterModule],
-    providers: [FacebookService, AuthTokenService, Api ]
+    providers: [FacebookService, UserService, Api ]
 })
 export class SharedModule {
     static forRoot(): ModuleWithProviders {

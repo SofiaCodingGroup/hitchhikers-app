@@ -3,7 +3,7 @@ import { Api } from './api'
 import { Observable } from 'rxjs/Observable'
 
 @Injectable()
-export class AuthTokenService {
+export class UserService {
   private pathAdd: string = '/add-user'
   private pathGet: string ='/get-user'
 
@@ -11,14 +11,14 @@ export class AuthTokenService {
 
   }
 
-  getToken() : Observable<any> {
+  getUser() : Observable<any> {
     return this.api
       .get(this.pathGet)
   }
 
-  saveToken(token) : Observable<any> {
+  saveUser(user) : Observable<any> {
     return this.api
-      .post(this.pathAdd, token)
+      .post(this.pathAdd, user)
   }
 
 }

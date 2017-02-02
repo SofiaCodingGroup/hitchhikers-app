@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as redis from 'redis';
-
+import Encryption from '../utilities/encryption'
 
 export function nameList(app: express.Application) {
 
@@ -10,7 +10,26 @@ export function nameList(app: express.Application) {
      */
     app.get('/api/get-user',
         (req: any, res: any, next: any) => {
-          
+
+          let RedisClient = redis.createClient()
+
+          RedisClient.smembers(req.body.id,
+            (err:any, replies:any) => {
+
+              let User
+              console.log(`
+               Reply length: ${replies.length}.
+               Reply: ${replies}.`);
+              User = replies
+              if(User){
+                res.json(User);
+              }
+                else {
+                res.send("No such user!")
+              }
+
+
+            });
 
         });
 
@@ -21,21 +40,33 @@ export function nameList(app: express.Application) {
     app.post('/api/add-user',
         (req: any, res: any, next: any) => {
 
-          let authResponse = req.body.authResponse
-          console.log(authResponse)
-;
+          let encryption = new Encryption();
+          let salt = encryption.generateSalt();
+          let encryptedPass = encryption.generateHashedPassword(salt,)
 
-           let RedisClient = redis.createClient(),
-               nameList: string[] = [];
+          let newUser;
+          let userId = req.body.id
+          let userName = req.body.name
+          let userPicURL = req.body.picture.data.url;
+          let authToke = req.body.
 
-           RedisClient.smembers('name-list',
+           let RedisClient = redis.createClient()
+
+          RedisClient([userId, userName, userPicURL],
+            function(err, reply){
+              console.log(reply)
+            }
+          )
+
+
+           RedisClient.smembers(userId,
              (err:any, replies:any) => {
                console.log(`
                Reply length: ${replies.length}.
                Reply: ${replies}.`);
-               nameList = replies;
+               newUser = replies;
 
-               res.json(nameList);
+               res.json(newUser);
            });
 
            RedisClient.quit();

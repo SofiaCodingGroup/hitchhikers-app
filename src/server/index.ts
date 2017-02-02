@@ -5,6 +5,7 @@ import * as path from 'path';
 import * as compression from 'compression';
 import * as routes from './routes';
 
+import { Encrytion } from '../utilities/encyption'
 
 import { Init } from './db/redis';
 
